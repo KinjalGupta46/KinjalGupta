@@ -23,10 +23,6 @@ SmartCalc is a lightweight and responsive calculator web app using HTML, CSS, an
 - CSS3 (with custom properties / variables)
 - JavaScript (Vanilla JS, no libraries)
 
-## Live Demo
-
-Try it here: [WebCalcX Live](https://KinjalGupta46.github.io/webcalcx/)
-
 ## Screenshots
 <img width="1307" height="670" alt="Screenshot 2025-07-12 120029" src="https://github.com/user-attachments/assets/459b1128-05a8-4709-b73c-fad4d0720bc4" />
 <img width="1354" height="725" alt="Screenshot 2025-07-12 120107" src="https://github.com/user-attachments/assets/d6206099-aaf9-4be3-964a-a65ab115d582" />
