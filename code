@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Calculator</title>
+  <style>
+    :root {
+      --bg: #f4f4f4;
+      --btn: #fff;
+      --accent: #4e89ae;
+      --text: #000;
+    }
+    body.dark-theme {
+      --bg: #1e1e1e;
+      --btn: #333;
+      --accent: #9fd3c7;
+      --text: #fff;
+    }
+    body {
+      background: var(--bg);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      background: var(--btn);
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      padding: 20px;
+      width: 320px;
+    }
+    .display {
+      background: var(--bg);
+      color: var(--text);
+      font-size: 2em;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      text-align: right;
+      overflow-x: auto;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    button {
+      padding: 15px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .theme-toggle {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .theme-toggle input {
+      transform: scale(1.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button onclick="clearDisplay()">AC</button>
+      <button onclick="deleteChar()">DEL</button>
+      <button onclick="appendValue('(')">(</button>
+      <button onclick="appendValue(')')">)</button>
+
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button onclick="appendValue('/')">/</button>
+
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('*')">*</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button onclick="appendValue('-')">-</button>
+
+      <button onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="appendValue('+')">+</button>
+    </div>
+    <div class="theme-toggle">
+      <label>
+        <input type="checkbox" id="themeToggle"> Toggle Dark Mode
+      </label>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById("display");
+    const sound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-interface-click-1126.mp3");
+
+    function appendValue(val) {
+      sound.play();
+      if (display.innerText === "0") display.innerText = val;
+      else display.innerText += val;
+    }
+
+    function clearDisplay() {
+      sound.play();
+      display.innerText = "0";
+    }
+
+    function deleteChar() {
+      sound.play();
+      display.innerText = display.innerText.slice(0, -1) || "0";
+    }
+
+    function calculate() {
+      sound.play();
+      try {
+        display.innerText = eval(display.innerText);
+      } catch {
+        display.innerText = "Error";
+      }
+    }
+
+    document.addEventListener("keydown", (e) => {
+      const key = e.key;
+      if (/[0-9+\-*/().]/.test(key)) appendValue(key);
+      else if (key === "Enter") calculate();
+      else if (key === "Backspace") deleteChar();
+      else if (key === "Escape") clearDisplay();
+    });
+
+    document.getElementById("themeToggle").addEventListener("change", (e) => {
+      document.body.classList.toggle("dark-theme", e.target.checked);
+    });
+  </script>
+</body>
+</html       
